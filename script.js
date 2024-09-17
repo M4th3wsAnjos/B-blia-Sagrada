@@ -2,6 +2,7 @@
 const livroSelect = document.getElementById('livroSelect');
 const capituloSelect = document.getElementById('capituloSelect');
 const textoBiblico = document.getElementById('textoBiblico');
+const toggleTema = document.getElementById('toggleTema'); // Botão de alternância
 
 // Lista completa de livros da Bíblia em português
 const livrosBiblia = [
@@ -85,6 +86,12 @@ function carregarVersiculos(livro, capitulo) {
                 let p = document.createElement('p');
                 p.classList.add('versiculo');
                 p.textContent = `${versiculo.verse}. ${versiculo.text}`;
+                
+                // Verificar se o modo escuro está ativado e aplicar a classe 'dark-mode'
+                if (document.body.classList.contains('dark-mode')) {
+                    p.classList.add('dark-mode');
+                }
+
                 textoBiblico.appendChild(p);
             });
         })
@@ -167,6 +174,14 @@ function obterNumeroDeCapitulos(livro) {
 
     return capitulosPorLivro[livro] || 0;
 }
+
+// Alternar entre modo claro e modo escuro
+toggleTema.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+    document.querySelectorAll('select, .versiculo, #conteudo, label, #toggleTema').forEach(element => {
+        element.classList.toggle('dark-mode');
+    });
+});
 
 // Carregar os livros ao carregar a página
 carregarLivros();
