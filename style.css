@@ -1,4 +1,4 @@
-/* Reset de estilo básico */
+/* Estilos Gerais (Modo Claro e Escuro) */
 * {
     margin: 0;
     padding: 0;
@@ -18,10 +18,12 @@ header {
     text-align: center;
     font-family: 'Playfair Display', serif;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
 }
 
 h1 {
     font-size: 2.5rem;
+    margin: 0;
 }
 
 main {
@@ -30,6 +32,7 @@ main {
     margin: auto;
 }
 
+/* Botão de Alternância de Tema */
 #toggleTema {
     position: absolute;
     top: 1rem;
@@ -94,39 +97,10 @@ option {
     font-size: 0.9rem;
 }
 
-@media (max-width: 768px) {
-    main {
-        padding: 1rem;
-    }
-
-    h1 {
-        font-size: 2rem;
-    }
-
-    .versiculo {
-        font-size: 0.8rem;
-    }
-}
-
-.carregando::before {
-    content: '';
-    width: 40px;
-    height: 40px;
-    border: 4px solid #003366;
-    border-top: 4px solid transparent;
-    border-radius: 50%;
-    animation: girar 1s linear infinite;
-}
-
-@keyframes girar {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-/* Estilos para o modo noturno */
+/* Modo Noturno */
 body.dark-mode {
     background: #121212;
-    color: #e0e0e0; /* Texto claro para boa visibilidade */
+    color: #e0e0e0;
 }
 
 header.dark-mode {
@@ -155,4 +129,42 @@ select.dark-mode, .versiculo.dark-mode {
 
 .versiculo.dark-mode {
     border-left-color: #888;
+}
+
+/* Responsividade para Dispositivos Móveis */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2rem;
+    }
+
+    main {
+        padding: 1rem;
+    }
+
+    #toggleTema {
+        font-size: 0.875rem; /* Reduzindo o tamanho da fonte no celular */
+        padding: 0.5rem 0.75rem; /* Ajuste de padding para ficar menor */
+        right: 0.5rem; /* Ajuste para a margem direita */
+        top: 0.5rem; /* Ajuste para a margem superior */
+    }
+
+    .versiculo {
+        font-size: 0.85rem; /* Ajuste do tamanho da fonte dos versículos no celular */
+    }
+}
+
+@media (max-width: 480px) {
+    #toggleTema {
+        width: 100%; /* Colocar o botão abaixo do título em telas muito pequenas */
+        position: relative;
+        top: 0;
+        right: 0;
+        margin-top: 1rem;
+        font-size: 1rem;
+        text-align: center;
+    }
+
+    header {
+        padding-bottom: 3rem; /* Aumentar o espaço abaixo do título */
+    }
 }
