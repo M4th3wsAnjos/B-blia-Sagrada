@@ -4,15 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bíblia Online</title>
+    <!-- Link para o Font Awesome para os ícones de Lua e Sol -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
         <h1>Bíblia Online</h1>
-        <button id="toggleTema">Alternar Modo Noturno</button> <!-- Botão de alternância -->
+        <button id="toggleTema" aria-label="Alternar Tema">
+            <i id="iconeTema" class="fas fa-moon"></i>
+        </button>
     </header>
 
     <main>
+        <section id="configuracaoLeitura">
+            <label for="fonteEstilo">Estilo da Fonte:</label>
+            <select id="fonteEstilo">
+                <option value="'Open Sans', sans-serif">Padrão (Open Sans)</option>
+                <option value="'Times New Roman', serif">Serifada (Times New Roman)</option>
+                <option value="'Courier New', monospace">Monoespaçada (Courier New)</option>
+                <option value="'Arial', sans-serif">Arial</option>
+                <option value="'Verdana', sans-serif">Verdana</option>
+                <option value="'Georgia', serif">Georgia</option>
+            </select>
+
+            <label for="tamanhoFonte">Tamanho da Fonte:</label>
+            <select id="tamanhoFonte">
+                <option value="12">12px</option>
+                <option value="14">14px</option>
+                <option value="16" selected>16px</option>
+                <option value="18">18px</option>
+                <option value="20">20px</option>
+                <option value="22">22px</option>
+            </select>
+        </section>
+
         <section id="selecao">
             <label for="livroSelect">Escolha o Livro:</label>
             <select id="livroSelect">
@@ -30,13 +56,7 @@
                 <p>Por favor, selecione um livro e um capítulo para visualizar os versículos.</p>
             </div>
         </section>
-    </main>
 
     <script src="script.js"></script>
 </body>
 </html>
-
-
-
-
-
