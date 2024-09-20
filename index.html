@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bíblia Online</title>
-    <!-- Link para o Font Awesome para os ícones de Lua e Sol -->
+    <!-- Link para o Font Awesome para os ícones de seta -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -37,6 +37,16 @@
                 <option value="20">20px</option>
                 <option value="22">22px</option>
             </select>
+
+            <label for="corMarcacao">Cor da Marcação:</label>
+            <select id="corMarcacao">
+                <option value="yellow">Amarelo</option>
+                <option value="green">Verde</option>
+                <option value="blue">Azul</option>
+                <option value="pink">Rosa</option>
+                <option value="orange">Laranja</option>
+            </select>
+            <button id="marcarTexto" aria-label="Marcar Texto">Marcar</button>
         </section>
 
         <section id="selecao">
@@ -56,6 +66,13 @@
                 <p>Por favor, selecione um livro e um capítulo para visualizar os versículos.</p>
             </div>
         </section>
+
+        <button id="setaAnterior" class="seta" aria-label="Capítulo anterior" style="display: none;">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button id="setaProximo" class="seta" aria-label="Próximo capítulo" style="display: none;">
+            <i class="fas fa-chevron-right"></i>
+        </button>
 
     <script src="script.js"></script>
 </body>
