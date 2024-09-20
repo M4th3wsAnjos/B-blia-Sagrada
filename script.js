@@ -6,6 +6,13 @@ const toggleTema = document.getElementById('toggleTema');
 const iconeTema = document.getElementById('iconeTema');
 const fonteEstilo = document.getElementById('fonteEstilo');
 const tamanhoFonte = document.getElementById('tamanhoFonte'); // Dropdown para o tamanho da fonte
+const corMarcacao = document.getElementById('corMarcacao'); // Seletor de cor
+const marcarTextoBtn = document.getElementById('marcarTexto'); // Botão para marcar o texto
+const setaAnterior = document.getElementById('setaAnterior');
+const setaProximo = document.getElementById('setaProximo');
+
+let numeroDeCapitulos = 0;
+let capituloAtual = 1;
 
 // Lista completa de livros da Bíblia em português
 const livrosBiblia = [
@@ -24,6 +31,31 @@ const livrosBiblia = [
     'Tiago', '1 Pedro', '2 Pedro', '1 João', '2 João', '3 João',
     'Judas', 'Apocalipse'
 ];
+
+// Função para marcar o texto selecionado com a cor escolhida
+function marcarTextoSelecionado(cor) {
+    const selecao = window.getSelection();
+    if (selecao.rangeCount > 0) {
+        const range = selecao.getRangeAt(0);
+        const span = document.createElement('span');
+        
+        // Ajustando o tom de azul mais claro
+        if (cor === 'blue') {
+            span.style.backgroundColor = '#add8e6'; // Azul claro
+        } else {
+            span.style.backgroundColor = cor; // Outras cores continuam as mesmas
+        }
+        
+        range.surroundContents(span);
+        selecao.removeAllRanges(); // Desmarcar após marcar
+    }
+}
+
+// Evento para o botão de marcar texto
+marcarTextoBtn.addEventListener('click', () => {
+    const corSelecionada = corMarcacao.value;
+    marcarTextoSelecionado(corSelecionada);
+});
 
 // Carregar livros no select
 function carregarLivros() {
@@ -46,18 +78,20 @@ livroSelect.addEventListener('change', () => {
 // Função para carregar versículos quando o capítulo é selecionado
 capituloSelect.addEventListener('change', () => {
     const livroSelecionado = livroSelect.value;
-    const capituloSelecionado = capituloSelect.value;
+    const capituloSelecionado = parseInt(capituloSelect.value);
 
     if (livroSelecionado && capituloSelecionado) {
-        carregarVersiculos(livroSelecionado, capituloSelecionado);
+        capituloAtual = capituloSelecionado;
+        carregarVersiculos(livroSelecionado, capituloAtual);
     }
+    atualizarSetas();
 });
 
 // Carregar capítulos para o livro selecionado
 function carregarCapitulos(livro) {
     capituloSelect.innerHTML = '<option value="">Escolha um Capítulo</option>';
 
-    const numeroDeCapitulos = obterNumeroDeCapitulos(livro);
+    numeroDeCapitulos = obterNumeroDeCapitulos(livro);
 
     if (numeroDeCapitulos === 0) {
         capituloSelect.disabled = true;
@@ -75,7 +109,13 @@ function carregarCapitulos(livro) {
     }
 }
 
-// Carregar versículos da API
+// Função para atualizar a visibilidade das setas de navegação
+function atualizarSetas() {
+    setaAnterior.style.display = capituloAtual > 1 ? 'block' : 'none';
+    setaProximo.style.display = capituloAtual < numeroDeCapitulos ? 'block' : 'none';
+}
+
+// Função para carregar versículos da API
 function carregarVersiculos(livro, capitulo) {
     const apiUrl = `https://bible-api.com/${livro}+${capitulo}?translation=almeida`;
 
@@ -105,6 +145,64 @@ function carregarVersiculos(livro, capitulo) {
             textoBiblico.innerHTML = 'Erro ao carregar os versículos. Tente novamente mais tarde.';
         });
 }
+
+// Função para aplicar o estilo de fonte e tamanho atual
+function aplicarEstiloFonte(elemento) {
+    const fonteSelecionada = fonteEstilo.value;
+    const tamanhoSelecionado = tamanhoFonte.value;
+    elemento.style.fontFamily = fonteSelecionada;
+    elemento.style.fontSize = `${tamanhoSelecionado}px`;
+}
+
+// Alterar fonte e tamanho nos versículos já carregados
+fonteEstilo.addEventListener('change', () => {
+    const versiculos = document.querySelectorAll('.versiculo');
+    versiculos.forEach(aplicarEstiloFonte); // Aplica o estilo para todos os versículos exibidos
+});
+
+tamanhoFonte.addEventListener('change', () => {
+    const versiculos = document.querySelectorAll('.versiculo');
+    versiculos.forEach(aplicarEstiloFonte); // Aplica o tamanho para todos os versículos exibidos
+});
+
+// Alternar entre modo claro e modo escuro e mudar o ícone
+toggleTema.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+    document.querySelectorAll('select, .versiculo, #conteudo, label, #toggleTema').forEach(element => {
+        element.classList.toggle('dark-mode');
+    });
+
+    if (document.body.classList.contains('dark-mode')) {
+        iconeTema.classList.replace('fa-moon', 'fa-sun');
+    } else {
+        iconeTema.classList.replace('fa-sun', 'fa-moon');
+    }
+
+    const versiculos = document.querySelectorAll('.versiculo');
+    versiculos.forEach(versiculo => {
+        versiculo.classList.toggle('dark-mode');
+    });
+});
+
+// Navegar para o próximo capítulo
+setaProximo.addEventListener('click', () => {
+    if (capituloAtual < numeroDeCapitulos) {
+        capituloAtual++;
+        capituloSelect.value = capituloAtual;
+        carregarVersiculos(livroSelect.value, capituloAtual);
+        atualizarSetas();
+    }
+});
+
+// Navegar para o capítulo anterior
+setaAnterior.addEventListener('click', () => {
+    if (capituloAtual > 1) {
+        capituloAtual--;
+        capituloSelect.value = capituloAtual;
+        carregarVersiculos(livroSelect.value, capituloAtual);
+        atualizarSetas();
+    }
+});
 
 // Retornar o número de capítulos com base no livro selecionado
 function obterNumeroDeCapitulos(livro) {
@@ -179,39 +277,6 @@ function obterNumeroDeCapitulos(livro) {
 
     return capitulosPorLivro[livro] || 0;
 }
-
-// Função para aplicar o estilo de fonte e tamanho atual
-function aplicarEstiloFonte(elemento) {
-    const fonteSelecionada = fonteEstilo.value;
-    const tamanhoSelecionado = tamanhoFonte.value;
-    elemento.style.fontFamily = fonteSelecionada;
-    elemento.style.fontSize = `${tamanhoSelecionado}px`;
-}
-
-// Alterar fonte com base no estilo e tamanho selecionados
-fonteEstilo.addEventListener('change', () => {
-    const versiculos = document.querySelectorAll('.versiculo');
-    versiculos.forEach(aplicarEstiloFonte);
-});
-
-tamanhoFonte.addEventListener('change', () => {
-    const versiculos = document.querySelectorAll('.versiculo');
-    versiculos.forEach(aplicarEstiloFonte);
-});
-
-// Alternar entre modo claro e modo escuro e mudar o ícone
-toggleTema.addEventListener('click', () => {
-    document.body.classList.toggle('dark-mode');
-    document.querySelectorAll('select, .versiculo, #conteudo, label, #toggleTema').forEach(element => {
-        element.classList.toggle('dark-mode');
-    });
-
-    if (document.body.classList.contains('dark-mode')) {
-        iconeTema.classList.replace('fa-moon', 'fa-sun');
-    } else {
-        iconeTema.classList.replace('fa-sun', 'fa-moon');
-    }
-});
 
 // Carregar os livros ao carregar a página
 carregarLivros();
