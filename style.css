@@ -63,6 +63,32 @@ main {
     width: 150px;
 }
 
+/* Estilos do seletor de cor */
+#corMarcacao {
+    margin-left: 10px;
+    padding: 0.5rem;
+    border: 2px solid #003366;
+    border-radius: 8px;
+    background-color: #fff;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+#marcarTexto {
+    margin-left: 10px;
+    padding: 0.5rem 1rem;
+    background-color: #004080;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#marcarTexto:hover {
+    background-color: #0056b3;
+}
+
 /* Seção de Seleção */
 #selecao {
     margin-bottom: 2rem;
@@ -111,6 +137,39 @@ option {
     font-size: 0.9rem;
 }
 
+/* Estilos das setas de navegação */
+.seta {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #004080;
+    color: #fff;
+    border: none;
+    padding: 1rem;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.5rem;
+    z-index: 10;
+    transition: background-color 0.3s ease;
+}
+
+#setaAnterior {
+    left: 10px;
+}
+
+#setaProximo {
+    right: 10px;
+}
+
+.seta:hover {
+    background-color: #0056b3;
+}
+
+.seta:disabled {
+    background-color: #888;
+    cursor: not-allowed;
+}
+
 /* Modo Noturno */
 body.dark-mode {
     background: #121212;
@@ -140,7 +199,7 @@ select.dark-mode, .versiculo.dark-mode {
     border-left-color: #888;
 }
 
-/* Responsividade para Dispositivos Móveis */
+/* Responsividade para dispositivos móveis */
 @media (max-width: 768px) {
     h1 {
         font-size: 2rem;
@@ -158,6 +217,11 @@ select.dark-mode, .versiculo.dark-mode {
 
     .versiculo {
         font-size: 0.85rem;
+    }
+
+    .seta {
+        padding: 0.75rem;
+        font-size: 1.25rem;
     }
 }
 
