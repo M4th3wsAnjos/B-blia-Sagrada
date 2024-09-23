@@ -32,18 +32,38 @@ const livrosBiblia = [
     'Judas', 'Apocalipse'
 ];
 
-// Função para marcar o texto selecionado com a cor escolhida
+// Função para marcar o texto selecionado com a cor escolhida, com ajustes para o modo noturno
 function marcarTextoSelecionado(cor) {
     const selecao = window.getSelection();
     if (selecao.rangeCount > 0) {
         const range = selecao.getRangeAt(0);
         const span = document.createElement('span');
         
-        // Ajustando o tom de azul mais claro
-        if (cor === 'blue') {
-            span.style.backgroundColor = '#add8e6'; // Azul claro
+        // Verificar se o modo noturno está ativo
+        const isDarkMode = document.body.classList.contains('dark-mode');
+        
+        // Ajustar cores de marcação no modo noturno para garantir legibilidade
+        if (isDarkMode) {
+            if (cor === 'yellow') {
+                span.style.backgroundColor = '#ffd700'; // Amarelo mais forte no modo noturno
+                span.style.color = '#000'; // Texto preto para contraste
+            } else if (cor === 'green') {
+                span.style.backgroundColor = '#32cd32'; // Verde claro
+                span.style.color = '#000'; // Texto preto para contraste
+            } else if (cor === 'blue') {
+                span.style.backgroundColor = '#87cefa'; // Azul claro
+                span.style.color = '#000'; // Texto preto para contraste
+            } else if (cor === 'pink') {
+                span.style.backgroundColor = '#ff69b4'; // Rosa claro
+                span.style.color = '#000'; // Texto preto para contraste
+            } else if (cor === 'orange') {
+                span.style.backgroundColor = '#ff8c00'; // Laranja claro
+                span.style.color = '#000'; // Texto preto para contraste
+            }
         } else {
-            span.style.backgroundColor = cor; // Outras cores continuam as mesmas
+            // Cores padrão no modo claro
+            span.style.backgroundColor = cor;
+            span.style.color = ''; // Sem alteração na cor do texto
         }
         
         range.surroundContents(span);
@@ -178,9 +198,14 @@ toggleTema.addEventListener('click', () => {
         iconeTema.classList.replace('fa-sun', 'fa-moon');
     }
 
+    // Atualizar todas as cores dos versículos imediatamente ao alternar o tema
     const versiculos = document.querySelectorAll('.versiculo');
     versiculos.forEach(versiculo => {
-        versiculo.classList.toggle('dark-mode');
+        if (document.body.classList.contains('dark-mode')) {
+            versiculo.classList.add('dark-mode');
+        } else {
+            versiculo.classList.remove('dark-mode');
+        }
     });
 });
 
