@@ -268,8 +268,19 @@ select.dark-mode, .versiculo.dark-mode {
         padding: 1rem;
     }
 
+    /* Ajustar as setas para telas pequenas */
     .seta {
-        padding: 0.5rem;
+        padding: 0.5rem; /* Diminuir o tamanho das setas */
         font-size: 1rem;
+        top: 90%; /* Mudar as setas para a parte inferior da tela */
+        transform: translateY(0); /* Remover o ajuste central vertical */
+    }
+
+    #setaAnterior {
+        left: 5%;
+    }
+
+    #setaProximo {
+        right: 5%;
     }
 }
