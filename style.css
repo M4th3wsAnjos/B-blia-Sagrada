@@ -37,14 +37,14 @@ main {
     right: 1rem;
     background-color: transparent;
     border: none;
-    font-size: 1.5rem; /* Tamanho do ícone */
+    font-size: 1.5rem;
     cursor: pointer;
     color: #fff;
     transition: color 0.3s ease;
 }
 
 #toggleTema.dark-mode {
-    color: #e0e0e0; /* Cor do ícone no modo escuro */
+    color: #e0e0e0;
 }
 
 /* Configurações de Personalização da Leitura */
@@ -71,7 +71,14 @@ main {
     border-radius: 8px;
     background-color: #fff;
     font-size: 1rem;
-    transition: border-color 0.3s ease;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+/* Modo noturno para a caixinha */
+body.dark-mode #corMarcacao {
+    background-color: #333; /* Fundo escuro */
+    color: #e0e0e0; /* Texto claro */
+    border-color: #444; /* Borda escura */
 }
 
 #marcarTexto {
@@ -135,6 +142,7 @@ option {
     background: #f9f9f9;
     border-radius: 4px;
     font-size: 0.9rem;
+    color: #333;
 }
 
 /* Estilos das setas de navegação */
@@ -238,5 +246,30 @@ select.dark-mode, .versiculo.dark-mode {
 
     header {
         padding-bottom: 3rem;
+    }
+
+    /* Melhorar o layout para caber melhor em telas pequenas */
+    #configuracaoLeitura {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: stretch;
+    }
+
+    select, button {
+        width: 100%;
+        font-size: 1rem;
+    }
+
+    .versiculo {
+        font-size: 0.8rem; /* Tamanho de fonte menor para textos longos */
+    }
+
+    #conteudo {
+        padding: 1rem;
+    }
+
+    .seta {
+        padding: 0.5rem;
+        font-size: 1rem;
     }
 }
