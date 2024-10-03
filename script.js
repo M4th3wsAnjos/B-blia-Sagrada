@@ -129,10 +129,29 @@ function carregarCapitulos(livro) {
     }
 }
 
-// Função para atualizar a visibilidade das setas de navegação
+// Função para atualizar a visibilidade e a posição das setas de navegação
 function atualizarSetas() {
-    setaAnterior.style.display = capituloAtual > 1 ? 'block' : 'none';
-    setaProximo.style.display = capituloAtual < numeroDeCapitulos ? 'block' : 'none';
+    const totalCapitulos = numeroDeCapitulos;
+
+    if (capituloAtual === 1) {
+        // No primeiro capítulo, mostrar apenas a seta para o próximo capítulo à direita
+        setaAnterior.style.display = 'none'; // Esconder seta anterior
+        setaProximo.style.display = 'block'; // Mostrar seta próximo
+        setaProximo.style.right = '10px'; // Colocar a seta próximo no lado direito
+        setaProximo.style.left = ''; // Remover qualquer ajuste à esquerda
+    } else if (capituloAtual === totalCapitulos) {
+        // No último capítulo, mostrar apenas a seta para o capítulo anterior à esquerda
+        setaProximo.style.display = 'none'; // Esconder seta próximo
+        setaAnterior.style.display = 'block'; // Mostrar seta anterior
+        setaAnterior.style.left = '10px'; // Colocar a seta anterior no lado esquerdo
+        setaAnterior.style.right = ''; // Remover qualquer ajuste à direita
+    } else {
+        // Nos capítulos intermediários, mostrar ambas as setas
+        setaAnterior.style.display = 'block'; // Mostrar seta anterior
+        setaAnterior.style.left = '10px'; // Colocar a seta anterior no lado esquerdo
+        setaProximo.style.display = 'block'; // Mostrar seta próximo
+        setaProximo.style.right = '10px'; // Colocar a seta próximo no lado direito
+    }
 }
 
 // Função para carregar versículos da API
