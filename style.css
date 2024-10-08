@@ -9,6 +9,9 @@ body {
     font-family: 'Open Sans', sans-serif;
     background: linear-gradient(to bottom, #f0f4f8, #e0e4e8);
     color: #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 header {
@@ -28,6 +31,12 @@ main {
     padding: 2rem;
     max-width: 800px;
     margin: auto;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
 }
 
 /* Botão de Alternância de Tema com Ícones */
@@ -53,6 +62,7 @@ main {
     display: flex;
     gap: 1rem;
     align-items: center;
+    justify-content: center; /* Alinhamento central */
 }
 
 #configuracaoLeitura label {
@@ -145,6 +155,32 @@ option {
     color: #333;
 }
 
+/* Área de exibição dos versículos */
+.verses-container {
+    max-width: 1000px;
+    background: #f9f9f9;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    margin: 2rem auto;
+    padding: 1.5rem;
+    text-align: justify;
+}
+
+/* Estilos dos botões */
+button {
+    padding: 0.75rem 1.5rem;
+    background-color: #004080;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
 /* Estilos das setas de navegação */
 .navegacao-setas {
     display: flex;
@@ -160,11 +196,11 @@ option {
     border-radius: 50%;
     cursor: pointer;
     font-size: 1.5rem;
-    transition: background-color 0.3s ease;
+    transition: transform 0.3s ease;
 }
 
 .seta:hover {
-    background-color: #0056b3;
+    transform: scale(1.1); /* Efeito de zoom */
 }
 
 .seta:disabled {
